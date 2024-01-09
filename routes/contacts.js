@@ -1,11 +1,12 @@
 const express = require('express')
 const router = express.Router()
+const contacts = require("../data/contacts")
 
-router.get('/contacts', (req, res) => {
+router.get('/', (req, res) => {
   res.json(contacts);
 });
 
-router.get('/contacts/:_id', (req, res) => {
+router.get('/:_id', (req, res) => {
 
   const contactId = parseInt(req.params._id);
   const contact = contacts.find(u => u._id === contactId);
@@ -17,7 +18,7 @@ router.get('/contacts/:_id', (req, res) => {
   }
 });
 
-router.post('/contacts', (req, res) => {
+router.post('/', (req, res) => {
   const counter = contacts.length;
   const newContact = {
     id: counter + 1,

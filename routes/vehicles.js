@@ -1,11 +1,12 @@
 const express = require('express')
 const router = express.Router()
+const vehicles = require("../data/vehicles")
 
-router.get('/vehicles', (req, res) => {
+router.get('/', (req, res) => {
   res.json(vehicles);
 });
 
-router.get('/vehicles/:_id', (req, res) => {
+router.get('/:_id', (req, res) => {
 
   const vehicleId = parseInt(req.params._id);
   const vehicle = vehicles.find(u => u._id === vehicleId);
@@ -17,7 +18,7 @@ router.get('/vehicles/:_id', (req, res) => {
   }
 });
 
-router.post('/vehicles', (req, res) => {
+router.post('/', (req, res) => {
   const counter = vehicles.length;
   const newVehicle = {
     id: counter + 1,

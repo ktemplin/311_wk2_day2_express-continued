@@ -1,12 +1,12 @@
 const express = require('express')
 const router = express.Router()
+const comments = require("../data/comments")
 
-router.get('/comments', (req, res) => {
+router.get('/', (req, res) => {
   res.json(comments);
 });
 
-router.get('/comments/:_id', (req, res) => {
-  // console.log('Received request for comment ID:', req.params._id);
+router.get('/:_id', (req, res) => {
 
   const commentId = parseInt(req.params._id);
   const comment = comments.find(u => u._id === commentId);
@@ -18,7 +18,7 @@ router.get('/comments/:_id', (req, res) => {
   }
 });
 
-router.post('/comments', (req, res) => {
+router.post('/', (req, res) => {
   const counter = comments.length;
   const newComment = {
     id: counter + 1,

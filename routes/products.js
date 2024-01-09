@@ -1,11 +1,12 @@
 const express = require('express')
 const router = express.Router()
+const products = require("../data/products")
 
-router.get('/products', (req, res) => {
+router.get('/', (req, res) => {
   res.json(products);
 });
 
-router.get('/products/:_id', (req, res) => {
+router.get('/:_id', (req, res) => {
 
   const productId = parseInt(req.params._id);
   const product = products.find(u => u._id === productId);
@@ -14,11 +15,11 @@ router.get('/products/:_id', (req, res) => {
     res.json(product);
   } else {
     // console.log('product not found');
-    res.status(404).send('product not found');
+    res.status(404).send('Product not found');
   }
 });
 
-router.post('/products', (req, res) => {
+router.post('/', (req, res) => {
   const counter = products.length;
   const newProduct = {
     id: counter + 1,

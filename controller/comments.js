@@ -1,12 +1,31 @@
-const express = require('express')
-const router = express.Router()
+const comments = require("../data/comments");
 
-const comments = require("./data/comments")
+function list(req, res) {
+  res.json(comments);
+}
 
-router.get('/comments', comments.list)
+function show(req, res) {
+  const commentId = parseInt(req.params.id);
+  const comment = comments.find(u => u.id === commentId);
 
-router.get('/comments/:id', comments.show)
+  if (comment) {
+    res.json(comment);
+  } else {
+    res.status(404).send('Comment not found');
+  }
+}
 
-router.post('/comments', comments.create)
+function create(req, res) {
+  const counter = comments.length;
+  const newComment = {
+    id: counter + 1,
+    name: req.body.name,
+    occupation: req.body.occupation,
+    avatar: req.body.avatar
+  };
 
-module.exports = { list, show, create }
+  comments.push(newComment);
+  res.json(newComment);
+}
+
+module.exports = { list, show, create };
